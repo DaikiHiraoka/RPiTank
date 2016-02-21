@@ -1,7 +1,7 @@
 CC = gcc
 CFLAG = -Wall -Wextra -02
 LDFLAGS = -pthread -lrt -lwiringPi
-SRCS = ./test.c ./make_new_thread.c ./server/thread_server.c ./server/server.c ./server/command_analysis.c ./motor/motor.c ./motor/thread_motor.c
+SRCS = ./main.c ./make_new_thread.c ./server/thread_server.c ./server/server.c ./server/command_analysis.c ./motor/motor.c ./motor/thread_motor.c
 OBJS = $(SRCS:.c=.o)
 TARGET = ./test
 

@@ -2,7 +2,6 @@
 #include <wiringPi.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>// needed for getrusage
 #include "motor.h"
 
 /*右モータPIN*/
@@ -277,19 +276,6 @@ int Motor_Stop() {
   printf("Motor_STOP\n");
 
   return 0;
-}
-
-void Command_Copy(Command_Info org, Command_Info *copy){
-  copy->large_type     = org.large_type;
-  copy->small_type     = org.small_type;
-  copy->spare3         = org.spare3;
-  copy->left_command   = org.left_command;
-  copy->right_command  = org.right_command;
-  copy->OP3            = org.OP3;
-  copy->OP4            = org.OP4;
-  copy->spare4         = org.spare4;
-  copy->error_code1    = org.error_code1;
-  copy->error_code2    = org.error_code2;
 }
 
 

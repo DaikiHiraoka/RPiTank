@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "thread.h"
 #include "./server/command_analysis.h"
-#include "./motor/motor.h"
+#include "./camera/camera.h"
 
 //#include <string.h>
 

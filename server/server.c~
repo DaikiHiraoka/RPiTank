@@ -78,12 +78,12 @@ int Socket_Recv_Sock(Thread_Arg *thread_arg) {
       thread_arg->end_flag = 1;
       break;
     }
-
-      /* printf("### char ###\n"); */
-      /* for(i = 0; i < 18; i++) { */
-      /* printf("i:%d, char:%c, x: %x\n", i, thread_arg->recv_data[i], thread_arg->recv_data[i]); */
-      /* } */
-      /* printf("###########\n"); */
+ 
+      printf("### char ###\n");
+      for(i = 0; i < 18; i++) {
+      printf("i:%d, char:%c, x: %x\n", i, thread_arg->recv_data[i], thread_arg->recv_data[i]);
+      }
+      printf("###########\n");
 
     /* if(strlen(thread_arg->recv_data) < 18) { */
     /*   printf("コマンドが短すぎます\n"); */
@@ -100,7 +100,7 @@ int Socket_Recv_Sock(Thread_Arg *thread_arg) {
     {
       // コマンド解析
       // thread_arg->command = Sock_Command_Analysis(thread_arg->recv_data);
-      Sock_Command_Analysis(thread_arg->recv_data, &thread_arg->command);
+      Sock_Command_Analysis(thread_arg->recv_data, thread_arg->command);
       thread_arg->recv_flag = 1; /* 受信完了 */
     }
     pthread_mutex_unlock(&thread_arg->mutex);

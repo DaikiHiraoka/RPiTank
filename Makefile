@@ -7,7 +7,7 @@ SRCS =	./main.c ./make_new_thread.c \
 	./motor/motor.c ./motor/thread_motor.c \
 	./camera/camera.c ./camera/thread_camera.c
 OBJS = $(SRCS:.c=.o)
-OUTDIR = ./bin
+#OUTDIR = ./bin
 TARGET = ./RPiTank
 
 .c.o:
@@ -26,5 +26,5 @@ clean:
 	$(RM) *.o
 	$(RM) ./motor/*.o
 	$(RM) ./server/*.o
-	$(RM) ./usb_camera/*.o
+	$(RM) ./camera/*.o
 	$(RM) $(TARGET)

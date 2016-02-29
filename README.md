@@ -5,3 +5,4 @@ Progress Technologies : Raspberry Pi 勉強会 (2015) の開発物です。
 
 hiraoka test
 >>>>>>> hiraoka/master
+pull request

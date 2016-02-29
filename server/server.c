@@ -78,6 +78,7 @@ int Socket_Recv_Sock(Thread_Arg *thread_arg) {
       thread_arg->end_flag = 1;
       break;
     }
+<<<<<<< HEAD
 
       /* printf("### char ###\n"); */
       /* for(i = 0; i < 18; i++) { */
@@ -88,6 +89,19 @@ int Socket_Recv_Sock(Thread_Arg *thread_arg) {
     /* if(strlen(thread_arg->recv_data) < 18) { */
     /*   printf("コマンドが短すぎます\n"); */
     /* } */
+=======
+    /*
+      printf("### char ###\n");
+      for(i = 0; i < 27; i++) {
+      printf("i:%d, char:%c, x: %x\n", i, recv_data[i], recv_data[i]);
+      }
+      printf("###########\n");
+    */
+
+    if(strlen(thread_arg->recv_data) < 18) {
+      printf("コマンドが短すぎます\n");
+    }
+>>>>>>> hiraoka/master
     // パケットの送信
     send(dstSocket, thread_arg->recv_data, sizeof(char) * 19, 0);
     //if(strcmp(&recv_data[0], "0") == 0) break;
@@ -99,8 +113,12 @@ int Socket_Recv_Sock(Thread_Arg *thread_arg) {
     pthread_mutex_lock(&thread_arg->mutex);
     {
       // コマンド解析
+<<<<<<< HEAD
       // thread_arg->command = Sock_Command_Analysis(thread_arg->recv_data);
       Sock_Command_Analysis(thread_arg->recv_data, &thread_arg->command);
+=======
+      thread_arg->command = Sock_Command_Analysis(thread_arg->recv_data);
+>>>>>>> hiraoka/master
       thread_arg->recv_flag = 1; /* 受信完了 */
     }
     pthread_mutex_unlock(&thread_arg->mutex);

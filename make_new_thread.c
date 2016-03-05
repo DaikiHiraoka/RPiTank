@@ -39,10 +39,6 @@ int make_new_thread(int thNum, pthread_t *thread, Thread_Arg *thread_arg) {
     pthread_create(thread, &attr, Thread_Camera, (void*) thread_arg);
     printf("--- make camera thread ---\n");
     break;
-  case 1:
-    pthread_create(thread, &attr, Thread_Motor, (void*) thread_arg);
-    printf("--- make motor thread ---\n");
-    break;
   default:
     puts("error of make thread");
     return -1;

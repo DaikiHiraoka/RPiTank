@@ -3,7 +3,9 @@
 
 extern void *Thread_Server(void *_thread_arg);
 extern void *Thread_Motor(void *_thread_arg);
-extern void *Thread_Camera(void *_thread_arg);
+// extern void *Thread_Camera(void *_thread_arg);
+
+int error(int at);
 
 int make_new_thread(int thNum, pthread_t *thread, Thread_Arg *thread_arg) {
   pthread_attr_t attr; // set attribute of thread

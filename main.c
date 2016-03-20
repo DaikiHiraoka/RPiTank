@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <unistd.h>
 #include "thread.h"
 #include "./server/command_analysis.h"
-#include "./camera/camera.h"
+#include "./camera/camera.hpp"
 
 //#include <string.h>
 
@@ -11,17 +12,13 @@ int main () {
   pthread_t thread[2]; // thread ID
   Thread_Arg thread_arg;
   Command_Info info;
-  char tmp[11]="M005500000\0";
+  char tmp[12]="M0055000000";
   int i = 0;
   int ret =0;
   int cfin = 1;
   char c;
 
   printf("--- main ---\n");
-  if(wiringPiSetupGpio() == -1){
-    printf("---------wiringPiSetupGpio missing----------\r\n");
-    return;
-  }
 
   // thread arg init
   Thread_Arg_Init(&thread_arg);
@@ -44,7 +41,7 @@ int main () {
   printf("OP3           : %c\n", thread_arg.command.OP3);
   printf("OP4           : %c\n", thread_arg.command.OP4);
   */
-  sleep(1); /* モータ終了待ち */
+  usleep(1000); /* モータ終了待ち */
   printf("### Main END ###\n");
   /* scanf("%c", &c); */
 

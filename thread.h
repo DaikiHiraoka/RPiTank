@@ -38,9 +38,16 @@ typedef struct{
 }Thread_Arg;
 
 int make_new_thread(int thNum, pthread_t *thread, Thread_Arg *thread_arg);
-void Command_Copy(Command_Info org, Command_Info *copy);
-void *Thread_Server(void *_thread_arg);
-void *Thread_Motor(void *_thread_arg);
-void *Thread_Camera(void *_thread_arg);
+
+extern void *Thread_Server(void *_thread_arg);
+extern void *Thread_Motor(void *_thread_arg);
+extern void *Thread_Camera(void *_thread_arg);
+extern void Command_Copy(Command_Info org, Command_Info *copy);
+
+extern "C"{
+  extern void *Thread_Camera(void *_thread_arg);
+  extern void Command_Copy(Command_Info org, Command_Info *copy);
+}
 
 #endif
+

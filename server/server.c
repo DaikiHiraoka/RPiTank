@@ -14,6 +14,7 @@
 #pragma comment(lib, "ws2_32.lib")//pragma must set before define
 
 #include "server.h"
+#include "command_analysis.h"
 
 #define PORT 9876 //クライアントプログラムとポート番号を合わせてください
 

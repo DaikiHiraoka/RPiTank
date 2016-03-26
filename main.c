@@ -2,11 +2,13 @@
 #include <unistd.h>
 #include "thread.h"
 #include "./server/command_analysis.h"
-#include "./camera/camera.hpp"
+/* #include "./camera/camera.hpp" */
 
 //#include <string.h>
 
 void Thread_Arg_Init(Thread_Arg *thread_arg);
+
+#define THREAD 1
 
 int main () {
   pthread_t thread[2]; // thread ID

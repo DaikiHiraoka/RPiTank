@@ -1,5 +1,5 @@
 CC = gcc
-CXX = g++
+PP = g++
 CAM = camera/
 CFLAG = -Wall -Wextra -02
 INCLUDES = -I /usr/local/include/opencv
@@ -7,11 +7,10 @@ LDFLAGS = -pthread -lrt -lwiringPi -ldl -lopencv_core -lopencv_imgproc -lopencv_
 SRCS =	./main.c ./make_new_thread.c \
 	./server/thread_server.c ./server/server.c ./server/command_analysis.c \
 	./motor/motor.c ./motor/thread_motor.c
-#	./camera/camera.cpp ./camera/thread_camera.cpp
-SRCS_CPP = $(CAM)camera.cpp $(CAM)thread_camera.cpp
 
 OBJS = $(SRCS:.c=.o)
-OBJS_CPP = $(SRCS_CPP:.cpp=.o)
+CAMOBJS = $(CAM)camera.o $(CAM)thread_camera.o
+#OUTDIR = ./bin
 TARGET = ./RPiTank
 
 #include $(CAM)Makefile
@@ -20,22 +19,15 @@ TARGET = ./RPiTank
 	@echo "Compiling $<..."
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
-#.cpp.o:
-#	@echo "Compiling $<..."
-#	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDES)
-
 default: all
 
 $(TARGET): $(OBJS)
 	@echo "Compiling $<..."
-	$(CXX) $(CFLAGS) -c $(CAM)camera.cpp -o $(CAM)camera.o $(INCLUDES)
-	$(CXX) $(CFLAGS) -c $(CAM)thread_camera.cpp -o $(CAM)thread_camera.o $(INCLUDES)
-	$(CXX) $(CFLAGS) -o $@ $(OBJS) $(OBJS_CPP) $(LDFLAGS)
+	cd $(CAM); make
+	$(PP) $(CFLAGS) -o $@ $(OBJS) $(CAMOBJS) $(LDFLAGS)
+	$(PP) $(CFLAGS) -o $@ $(OBJS) $(CAMOBJS) $(LDFLAGS)
 
 all: $(TARGET)
-
-ncam: $(OBJS)
-	$(CXX) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 clean:
 	$(RM) *.o

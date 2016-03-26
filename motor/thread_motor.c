@@ -10,7 +10,7 @@ void *Thread_Motor(void *_thread_arg) {
     printf("--- thread motor ---\n");
   if(wiringPiSetupGpio() == -1){
     printf("---------wiringPiSetupGpio missing----------\r\n");
-    return;
+    /* return; */
   }
 
     ret = Motor_main(&command, thread_arg);

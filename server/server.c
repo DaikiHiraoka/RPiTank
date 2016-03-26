@@ -11,6 +11,7 @@
 #include <netinet/in.h> // inet_addr()
 #include <netinet/tcp.h> // TCP_NODELAY
 #include <arpa/inet.h> // inet_addr()
+#include <unistd.h> // close()
 #pragma comment(lib, "ws2_32.lib")//pragma must set before define
 
 #include "server.h"
@@ -56,7 +57,7 @@ int Socket_Recv_Sock(Thread_Arg *thread_arg) {
 
     // 接続の受付け
     printf("接続を待っています\nクライアントプログラムを動かしてください\n");
-    dstSocket = accept(srcSocket, (struct sockaddr *) &dstAddr, &dstAddrSize);
+    dstSocket = accept(srcSocket, (struct sockaddr *) &dstAddr, (socklen_t *)&dstAddrSize);
     printf("%s から接続を受けました\n", inet_ntoa(dstAddr.sin_addr));
 
     //  while (1) {

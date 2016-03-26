@@ -1,29 +1,31 @@
 CC = g++
-CAM = 1
-CFLAG = -Wall -Wextra -02
-INCLUDES = -I/usr/local/include/opencv
-LDFLAGS = -pthread -lrt -lwiringPi -ldl -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_contrib -lopencv_legacy -lopencv_flann -lm
-SRCS =	./camera.cpp ./thread_camera.cpp
+CFLAGS =  -Wall -Wextra `pkg-config --cflags opencv` `pkg-config --libs opencv`
+INCLUDES = 
+#INCLUDES = -I/usr/local/include/opencv `pkg-config opencv --cflags` `pkg-config opencv --libs`
+LDFLAGS = -pthread -lrt -lwiringPi -ldl 
+#-lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_contrib -lopencv_legacy -lopencv_flann -lm
+SRCS =	./test.cpp ./thread_camera.cpp ./send.cpp
 
-OBJS = 
+OBJS = $(SRCS:.cpp=.o)
 #OUTDIR = ./bin
-#TARGET = ./RPiTank
+TARGET = ./camtest
 
-.c:
+.cpp.o:
 	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) -c  $(INCLUDES)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 default: all
 
-#$(TARGET): $(OBJS)
-#	@echo "Compiling $<..."
-#	$(CC) $(CFLAGS) -c $(OBJS) $(LDFLAGS)
-
-all: $(SRCS)
+$(TARGET): $(OBJS)
 	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) -c $(SRCS) $(INCLUDES)
-	@echo "Obj"
-#	OBJS+=$(SRCS:.cpp=.o)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
+
+#all: $(SRCS)
+#	@echo "Compiling $<..."
+#	$(CC) $(CFLAGS) -o $(OBJS) $(INCLUDES)
+
+all: $(TARGET)
 
 clean:
 	$(RM) *.o
+	$(RM) $(TARGET)

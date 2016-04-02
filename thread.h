@@ -3,6 +3,7 @@
 
 #include <time.h>// needed for getrusage
 #include <pthread.h>
+#include <netinet/in.h> // inet_addr()
 /*
 #include "./server/server.h"
 #include "./server/command_analysis.h"
@@ -34,6 +35,7 @@ typedef struct{
   int end_flag;
   Command_Info command;
   char recv_data[19];
+  struct sockaddr_in addr;
 }Thread_Arg;
 
 int make_new_thread(int thNum, pthread_t *thread, Thread_Arg *thread_arg);

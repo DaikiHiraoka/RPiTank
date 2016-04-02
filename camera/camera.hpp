@@ -7,6 +7,6 @@
 int Camera_main(Command_Info *command, Thread_Arg *thread_arg);
 
 /* C/C++混合で書く場合，言語感で関数名の定義が異なるため明示する必要がある */
-// extern "C" void *Thread_Camera(void *_thread_arg);
+extern "C" void *Thread_Camera(void *_thread_arg);
 
 #endif

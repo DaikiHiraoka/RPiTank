@@ -10,8 +10,8 @@
 #define RIGHTMOTORREVERSEPIN  26      //後進
 
 /*左モータPIN*/
-#define LEFTMOTORADVANCEPIN 23      //前進
-#define LEFTMOTORREVERSEPIN  24      //後進
+#define LEFTMOTORADVANCEPIN  24      //前進
+#define LEFTMOTORREVERSEPIN  23      //後進
 
 #define CLOCK 400
 #define RANGE 1024
@@ -331,8 +331,13 @@ int Motor_main(Command_Info *command, Thread_Arg *thread_arg)
       if(thread_arg->recv_flag == 1){
 	/* command copy */
 	Command_Copy(thread_arg->command, command);
-	new_command = 1;
-	printf("\n=== Get New Command ===\n");
+	if(command->large_type == 'M'){
+	  new_command = 1;
+	  thread_arg->recv_flag = 0;
+	  printf("\n=== Get New Motor Command ===\n");
+	} else {
+	  new_command = 0;
+	}
       }
     }
     pthread_mutex_unlock(&thread_arg->mutex);

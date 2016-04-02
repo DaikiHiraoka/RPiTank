@@ -1,9 +1,9 @@
 CC = gcc
 CXX = g++
 CAM = camera/
-CFLAG = -Wall -Wextra -02
+CFLAGS =  -Wall -Wextra `pkg-config --cflags opencv` `pkg-config --libs opencv`
 INCLUDES = -I /usr/local/include/opencv
-LDFLAGS = -pthread -lrt -lwiringPi -ldl -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_contrib -lopencv_legacy -lopencv_flann -lm
+LDFLAGS = -pthread -lrt -lwiringPi -ldl -lm
 SRCS =	./main.c ./make_new_thread.c \
 	./server/thread_server.c ./server/server.c ./server/command_analysis.c \
 	./motor/motor.c ./motor/thread_motor.c
@@ -28,8 +28,9 @@ default: all
 
 $(TARGET): $(OBJS)
 	@echo "Compiling $<..."
-	$(CXX) $(CFLAGS) -c $(CAM)camera.cpp -o $(CAM)camera.o $(INCLUDES)
 	$(CXX) $(CFLAGS) -c $(CAM)thread_camera.cpp -o $(CAM)thread_camera.o $(INCLUDES)
+	$(CXX) $(CFLAGS) -c $(CAM)camera.cpp -o $(CAM)camera.o $(INCLUDES)
+	@echo "Linking $<..."
 	$(CXX) $(CFLAGS) -o $@ $(OBJS) $(OBJS_CPP) $(LDFLAGS)
 
 all: $(TARGET)

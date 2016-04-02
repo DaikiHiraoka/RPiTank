@@ -22,7 +22,12 @@ void Sock_Command_Analysis(char *recv_data, Command_Info *command) {
   //Command_Info command;
   printf("--- command annaysis ---\n");
 
-  printf("recv : %s\n", recv_data);
+  // printf("recv : %s\n", recv_data);
+  printf("recv: ");
+  for(i = 0; i < 18; i++) {
+    printf("%c", recv_data[i]);
+  }
+  printf("\n");
 
   switch(recv_data[7]) {
   case 'M':
@@ -48,6 +53,15 @@ void Sock_Command_Analysis(char *recv_data, Command_Info *command) {
     command->OP3            = recv_data[12];
     command->OP4            = recv_data[13];
     break;
+  case 'S':
+    printf("System\n");
+    command->large_type     = recv_data[7];
+    command->small_type     = recv_data[8];
+    command->spare3         = recv_data[9];
+    command->left_command   = recv_data[10];
+    command->right_command  = recv_data[11];
+    command->OP3            = recv_data[12];
+    command->OP4            = recv_data[13];
   default:
     printf("ERROR\n");
     break;

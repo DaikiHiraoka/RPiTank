@@ -8,7 +8,7 @@
 
 void Thread_Arg_Init(Thread_Arg *thread_arg);
 
-#define THREAD 1
+#define THREAD 3
 
 int main () {
   pthread_t thread[2]; // thread ID
@@ -50,10 +50,10 @@ int main () {
   return 0;
 }
 
-
 void Thread_Arg_Init(Thread_Arg *thread_arg){
   int i = 0;
   thread_arg->recv_flag = 0;
+  thread_arg->end_flag = 0;
   thread_arg->command.large_type     = '0';
   thread_arg->command.small_type     = '0';
   thread_arg->command.spare3         = '0';

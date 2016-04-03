@@ -1,44 +1,46 @@
 CC = gcc
-CFLAG = -Wall -Wextra -02
-<<<<<<< HEAD
-INCLUDES = -I/usr/local/include/opencv
-LDFLAGS = -pthread -lrt -lwiringPi -ldl -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_contrib -lopencv_legacy -lopencv_flann -lm
+CXX = g++
+CAM = camera/
+CFLAGS =  -Wall -Wextra `pkg-config --cflags opencv` `pkg-config --libs opencv`
+INCLUDES = -I /usr/local/include/opencv
+LDFLAGS = -pthread -lrt -lwiringPi -ldl -lm
 SRCS =	./main.c ./make_new_thread.c \
 	./server/thread_server.c ./server/server.c ./server/command_analysis.c \
-	./motor/motor.c ./motor/thread_motor.c \
-	./camera/camera.c ./camera/thread_camera.c
+	./motor/motor.c ./motor/thread_motor.c
+#	./camera/camera.cpp ./camera/thread_camera.cpp
+SRCS_CPP = $(CAM)camera.cpp $(CAM)thread_camera.cpp
+
 OBJS = $(SRCS:.c=.o)
-#OUTDIR = ./bin
+OBJS_CPP = $(SRCS_CPP:.cpp=.o)
 TARGET = ./RPiTank
+
+#include $(CAM)Makefile
 
 .c.o:
 	@echo "Compiling $<..."
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
-=======
-LDFLAGS = -pthread -lrt -lwiringPi
-SRCS = ./test.c ./make_new_thread.c ./server/thread_server.c ./server/server.c ./server/command_analysis.c ./motor/motor.c ./motor/thread_motor.c
-OBJS = $(SRCS:.c=.o)
-TARGET = ./test
 
-.c.o:
-	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) -c $< -o $@
->>>>>>> hiraoka/master
+#.cpp.o:
+#	@echo "Compiling $<..."
+#	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 default: all
 
 $(TARGET): $(OBJS)
 	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
+	$(CXX) $(CFLAGS) -c $(CAM)thread_camera.cpp -o $(CAM)thread_camera.o $(INCLUDES)
+	$(CXX) $(CFLAGS) -c $(CAM)camera.cpp -o $(CAM)camera.o $(INCLUDES)
+	@echo "Linking $<..."
+	$(CXX) $(CFLAGS) -o $@ $(OBJS) $(OBJS_CPP) $(LDFLAGS)
 
 all: $(TARGET)
+
+ncam: $(OBJS)
+	$(CXX) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
 
 clean:
 	$(RM) *.o
 	$(RM) ./motor/*.o
 	$(RM) ./server/*.o
-<<<<<<< HEAD
 	$(RM) ./camera/*.o
-=======
->>>>>>> hiraoka/master
 	$(RM) $(TARGET)
